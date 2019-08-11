@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.ProductMapper">
+	
+<!-- 	查询 -->
+	<select id="queryIdExist" parameterType="String" resultType="String"  >
+		select v_id from verify where v_id=#{v_id} 
+	</select>
+	
+	<select id="queryProductById" parameterType="String" resultType="Product"  >
+		select * from verify where v_id=#{v_id} 
+	</select>
+	
+	<select id="queryTimeById" parameterType="String" resultType="java.sql.Date"  >
+		select time from verify where v_id=#{v_id} 
+	</select>
+	
+	<select id="queryNumById" parameterType="String" resultType="int"  >
+		select num from verify where v_id=#{v_id} 
+	</select>
+	
+<!-- 	修改 -->
+	<update id="updateTimeById" parameterType="String">
+		update verify set time=now()  where v_id=#{v_id}
+	</update>
+	
+	<update id="updateNumById" parameterType="Product">
+		update verify set num=#{num} where v_id=#{v_id}
+	</update>
+	
+	
+	<!-- 测试用查询全部 -->
+	<select id="queryAllProduct" resultType="Product" >
+		select * from verify 
+	</select>
+	
+	<select id="querydatanum" resultType="int" >
+		select count(*) from verify 
+	</select>
+	
+</mapper>

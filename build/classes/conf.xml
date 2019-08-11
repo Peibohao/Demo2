@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+	<properties resource="db.properties"/>
+
+<!-- 设置单个或多个别名 -->
+	<typeAliases>
+		<!-- 单个别名 -->
+<!-- 		<typeAlias type="mybatis.Person" alias="Person"/> -->
+	
+		<!-- 批量定义别名 （某个包下的所有类自动定义他们的类名）-->
+		<package name="product"/>
+	</typeAliases>
+	
+	<!-- java和数据库中不同类型的转换 -->
+<!-- 	<typeHandlers> -->
+<!-- 		<typeHandler handler="converter.BooleanAndInt" javaType="Boolean" jdbcType="Integer"/> -->
+<!-- 	</typeHandlers> -->
+	
+<!-- 通过environment的default值和environment的id来指定mybatis运行时的数据库环境 -->
+    <environments default="development">
+    	
+    	<!-- 开发环境（自己的计算机） -->
+        <environment id="development">
+        
+        <!-- JDBC:利用JDBC方式处理事务（手工方式
+        	MANAGER：将事务较给其他组建处理（Spring） -->
+            <transactionManager type="JDBC"/>
+       
+        <!-- 数据源类型：
+        				UNPOOLED:传统的JDBC模式（每次访问数据库，均需要打开、关闭数据库操作，但是这很消耗性能） 
+        				POOLED:使用数据库连接池
+        				JNDI:从tomcat获取内置数据库连接池 -->
+            <dataSource type="POOLED">
+            
+            <!-- 配置数据库信息 -->
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>
+        </environment>
+    
+    <!-- 真实项目所跑的计算机 -->
+     <environment id="shishi">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+            
+            <!-- 配置数据库信息 -->
+                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/ssm_crud?characterEncoding=UTF-8&amp;serverTimezone=UTC&amp;useSSL=true"/>
+                <property name="username" value="root"/>
+                <property name="password" value="root"/>
+            </dataSource>
+        </environment>
+        
+     
+    </environments>
+   
+    
+    <mappers>
+    	<!-- 加载映射文件 -->
+        <mapper resource="mapper/ProductMapper.xml"/>
+    </mappers>
+</configuration>
